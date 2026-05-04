@@ -1,0 +1,129 @@
+# TRANSFORMACION_ERRORES.md
+
+## Reporte de anomalías, contradicciones y decisiones durante la transformación documental
+
+**Proyecto:** CONTRATACIÓN DEL SERVICIO DE SOPORTE HEALTH CHECK Y AGRUPAMIENTO K-MEANS DE LOS QUERYS PRINCIPALES DEL ENTORNO EIS DE PRODUCCIÓN DEL HE1  
+**Fecha de transformación:** 4 de mayo de 2026  
+**Worker:** Agente ejecutor de transformación documental
+
+---
+
+## 1. ANOMALÍAS DETECTADAS Y DOCUMENTADAS
+
+### 1.1 Perfil del técnico requerido — Posible error de plantilla en FCP-002
+
+**Archivo:** `fuentes/FCP-002 TDR HEALTH CHECK BD 2026 (1).html`  
+**Sección:** 3. PERSONAL TÉCNICO / EQUIPO DE TRABAJO / RECURSOS  
+**Descripción:** La observación del personal técnico solicita:
+> *"La experiencia del personal solicitado será respaldada con el registro del título, la Senescyt o certificados, contratos u otros documentos que validen la experiencia en el desarrollo de páginas web."*
+
+**Problema:** El objeto del contrato es la optimización de bases de datos Oracle mediante Health Check, implementación de Redis (Open Source) y agrupamiento K-means. La experiencia requerida en "desarrollo de páginas web" es incongruente con las tareas técnicas del servicio (administración de bases de datos Oracle, configuración de Redis, análisis de rendimiento, PL/SQL).
+
+**Causa probable:** Error de copiado desde una plantilla genérica utilizada para otros procesos de contratación.
+
+**Decisión tomada:** Se mantiene el texto original en el documento transformado, pero se añade una nota visible marcando la posible anomalía. No se modifica el contenido sin autorización explícita.
+
+---
+
+### 1.2 Discrepancia de fecha de creación en metadatos de FCP-002
+
+**Archivo:** `fuentes/FCP-002 TDR HEALTH CHECK BD 2026 (1).html`  
+**Metadato:** `<meta name="created" content="2025-02-09T04:07:39"/>`  
+**Problema:** La fecha de creación del documento (9 de febrero de 2025) es anterior en más de un año a la fecha de los otros dos documentos (14 de abril de 2026).  
+**Causa probable:** El archivo probablemente fue creado a partir de una plantilla existente cuya fecha de creación original no fue actualizada.  
+**Decisión:** Se documenta la anomalía. No se modifica el metadato pues es información técnica del archivo original.
+
+---
+
+## 2. CONTRADICCIONES RESUELTAS DURANTE LA TRANSFORMACIÓN
+
+### 2.1 Código de proceso
+
+| Documento | Código original |
+|-----------|----------------|
+| FCP-001 | `CCFFAA-HE1-2026-372` |
+| FCP-002 | `HE1-2026-372` |
+| Informe Técnico | `DTIC-BDD-002` (es el código del informe, no del proceso) |
+
+**Decisión:** Se unifica al código `CCFFAA-HE1-2026-372` en todos los documentos, por ser el más completo (incluye prefijo institucional).
+
+---
+
+### 2.2 Nombre del servicio / proyecto
+
+| Documento | Nombre original |
+|-----------|----------------|
+| FCP-001 | `"SOPORTE HEALTH CHECK Y AGRUPAMIENTO KMEANS"` (sin comas) |
+| Informe Técnico | `"SOPORTE, HEALTH CHECK Y AGRUPAMIENTO KMEANS"` (con comas) |
+| FCP-002 | `"SOPORTE HEALTH CHECK Y AGRUPAMIENTO KMEANS"` (sin comas) |
+
+**Decisión:** Se normaliza a `"SOPORTE HEALTH CHECK Y AGRUPAMIENTO K-MEANS"` (sin comas entre los términos), alineado con FCP-001 y FCP-002, que son la mayoría.
+
+---
+
+### 2.3 Escritura de "K-means"
+
+**Variantes encontradas:** `Kmeans`, `K-means`, `KMEANS`  
+**Decisión:** Se estandariza a `K-means` (con guion, mayúscula inicial tras el guion) en todos los documentos, según la forma técnicamente correcta y recomendada por la matriz de coherencia.
+
+---
+
+### 2.4 Nombre del departamento
+
+| Documento | Nombre original |
+|-----------|----------------|
+| FCP-001 | `DTIC HE1` |
+| Informe Técnico | `DEPARTAMENTO DE TECNOLOGÍAS DE LA INFORMACIÓN Y COMUNICACIÓN DEL HE-1` (singular) |
+| FCP-002 | `DEPARTAMENTO DE TECNOLOGÍAS DE LA INFORMACIÓN Y COMUNICACIONES` (plural) |
+
+**Decisión:** Se unifica a `"Departamento de Tecnologías de la Información y Comunicaciones (DTIC)"` (plural, con siglas). Se respeta la forma más completa y gramaticalmente correcta.
+
+---
+
+### 2.5 Nombre del hospital
+
+**Variantes encontradas:** `HE1`, `HE-1`, `HE Nro. 1`, `Hospital de Especialidades FF.AA. No. 1`, `Hospital de Especialidades de Fuerzas Armadas Nro.1`  
+**Decisión:** Se estandariza a `"Hospital de Especialidades Fuerzas Armadas Nro. 1 (HE1)"`.
+
+---
+
+### 2.6 Rol del revisor/aprobador
+
+| Documento | Cargo |
+|-----------|-------|
+| FCP-001 | `Jefe DTIC HE1` |
+| FCP-002 | `Jefe y Gestor de Gasto DTIC HE1` |
+
+**Decisión:** Se respeta el texto original de cada documento (FCP-001 usa "REVISADO Y APROBADO POR" y cargo "Jefe DTIC HE1"; FCP-002 usa "REVISADO Y SUPERVISADO POR" y cargo "Jefe y Gestor de Gasto DTIC HE1"). No se fuerza una unificación porque ambos pueden ser válidos como títulos alternativos de la misma persona. Se documenta la diferencia.
+
+---
+
+### 2.7 Texto corregido en FCP-002 sección 6.7
+
+**Original:** `"wokflows"` (error tipográfico) y `"una herramienta que me permita hacer"` (estilo personal/coloquial)  
+**Corregido a:** `"workflows"` y `"una herramienta que permita realizar"` (estilo impersonal institucional)
+
+---
+
+## 3. DOCUMENTOS PROCESADOS
+
+| # | Archivo origen | Archivo destino | Estado |
+|---|---------------|-----------------|--------|
+| 1 | `fuentes/FCP-001 INF NECES HEALTH CHECK BD 2026 (1).html` | `salida/FCP-001_INFORME_NECESIDAD_HEALTH_CHECK_BD_2026.html` | TRANSFORMADO |
+| 2 | `fuentes/FCP-002 TDR HEALTH CHECK BD 2026 (1).html` | `salida/FCP-002_TERMINOS_REFERENCIA_HEALTH_CHECK_BD_2026.html` | TRANSFORMADO (con anomalías documentadas) |
+| 3 | `fuentes/INFORME TECNICO HEALTH CHECK BD 2026 (1).html` | `salida/INFORME_TECNICO_HEALTH_CHECK_BD_2026.html` | TRANSFORMADO |
+
+## 4. DOCUMENTOS OMITIDOS
+
+Ninguno. Los 3 documentos fuente fueron procesados exitosamente.
+
+## 5. RIESGOS Y OBSERVACIONES ADICIONALES
+
+1. **Imágenes:** Los logos institucionales fueron copiados a `salida/` con nombres simplificados (`logo_he1.jpg` y `logo_he1_amazonico.png`). Se actualizaron las rutas en los HTML.
+2. **Lock file:** Se detectó el archivo `.~lock.FCP-001 INF NECES HEALTH CHECK BD 2026 (1).html#` indicando bloqueo previo por LibreOffice. No afectó la transformación.
+3. **Atributos eliminados:** Se eliminaron todos los atributos `data-sheets-*` (propietarios de Excel), etiquetas `<sdfield>` de numeración automática, y estilos inline redundantes heredados de LibreOffice.
+4. **Contexto externo:** El archivo `contexto/contexto.md` describe un proceso de compras de muebles, no relacionado con este proyecto. Se omitió su uso para evitar contaminación temática.
+
+---
+
+*Fin del reporte de errores.*
